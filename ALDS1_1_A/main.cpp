@@ -36,20 +36,37 @@ void print_process(ll* numbers, ll n) {
   cout << endl;
 }
 
-void insertionSort(ll* numbers, ll n) {
+// void insertionSort(ll* numbers, ll n) {
+//   print_process(numbers, n);
+//   // 2番目の要素から最後の要素まで順に走査する
+//   for (ll i = 1; i < n; ++i) {
+//     ll v = numbers[i];
+//     // 挿入位置のインデックス, 最初は1番目の要素を考える
+//     ll j = i - 1;
+//     // 挿入位置のnumberが選択中の数字より大きければ、forを続ける
+//     for (; j >= 0 && numbers[j] > v; --j) {
+//       // 数字の並びを1個ずつ右にずらす
+//       numbers[j + 1] = numbers[j];
+//     }
+//     // j は選択中の数字よりも小さいので、その右隣にvを入れる
+//     numbers[j + 1] = v;
+//     print_process(numbers, n);
+//   }
+// }
+
+void insertionSort(ll numbers[], ll n) {
+  // 1番目の要素 (v)から、n - 1番目の要素までループさせる
+  // v をひとつ左の要素 w
+  // と比較して、それより大きければループを終え、現在のidxに代入する
+  // 小さければ、wを右に1個ずらし、ループを繰り返す。
   print_process(numbers, n);
-  // 2番目の要素から最後の要素まで順に走査する
+
   for (ll i = 1; i < n; ++i) {
     ll v = numbers[i];
-    // 挿入位置のインデックス, 最初は1番目の要素を考える
-    ll j = i - 1;
-
-    // 挿入位置のnumberが選択中の数字より大きければ、forを続ける
+    ll j = i - 1; // 検査対象の一個隣のidxから探索を始める
     for (; j >= 0 && numbers[j] > v; --j) {
-      // 数字の並びを1個ずつ右にずらす
-      numbers[j + 1] = numbers[j];
+      numbers[j + 1] = numbers[j]; // 1個右にずらす
     }
-    // j は選択中の数字よりも小さいので、その右隣にvを入れる
     numbers[j + 1] = v;
     print_process(numbers, n);
   }
