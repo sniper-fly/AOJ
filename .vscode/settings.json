@@ -1,5 +1,22 @@
 {
 	"files.associations": {
-		"stdio.h": "c"
-	}
+    "*.h": "c",
+    "*.hpp": "cpp",
+    "*.Rmd": "md",
+    "stdio.h": "c",
+    "iostream": "cpp"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/a.out": true,
+    "**/out_*.txt": true,
+    "**/in_*.txt": true,
+    "**/metadata.yml": true,
+  },
+  "explorerExclude.backup": {}
 }
