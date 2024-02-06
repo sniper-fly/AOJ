@@ -16,7 +16,7 @@
     "**/a.out": true,
     "**/out_*.txt": true,
     "**/in_*.txt": true,
-    "**/metadata.yml": true,
+    "**/metadata.yml": true
   },
   "explorerExclude.backup": {}
 }
