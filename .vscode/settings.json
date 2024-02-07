@@ -4,7 +4,9 @@
     "*.hpp": "cpp",
     "*.Rmd": "md",
     "stdio.h": "c",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "stdexcept": "cpp",
+    "iosfwd": "cpp"
   },
   "files.exclude": {
     "**/.git": true,
