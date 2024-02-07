@@ -25,3 +25,5 @@ int main() {
   return 0;
 }
 ```
+
+https://code.visualstudio.com/docs/cpp/config-linux
