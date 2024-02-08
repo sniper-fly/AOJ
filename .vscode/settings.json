@@ -18,7 +18,8 @@
     "**/a.out": true,
     "**/out_*.txt": true,
     "**/in_*.txt": true,
-    "**/metadata.yml": true
+    "**/metadata.yml": true,
+    "**/.gdb_history": true,
   },
   "explorerExclude.backup": {}
 }
