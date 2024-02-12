@@ -6,7 +6,8 @@
     "stdio.h": "c",
     "iostream": "cpp",
     "stdexcept": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "iomanip": "cpp"
   },
   "files.exclude": {
     "**/.git": true,
@@ -19,7 +20,7 @@
     "**/out_*.txt": true,
     "**/in_*.txt": true,
     "**/metadata.yml": true,
-    "**/.gdb_history": true,
+    "**/.gdb_history": true
   },
   "explorerExclude.backup": {}
 }
