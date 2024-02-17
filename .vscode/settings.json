@@ -18,7 +18,7 @@
     "**/Thumbs.db": true,
     "**/a.out": true,
     "**/out_*.txt": true,
-    "**/in_*.txt": false,
+    "**/in_*.txt": true,
     "**/metadata.yml": true,
     "**/.gdb_history": true
   },
