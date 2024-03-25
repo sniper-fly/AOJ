@@ -35,17 +35,17 @@ void swap(int& l, int& r) {
   r             = tmp;
 }
 
-int partition(int nums[], int p, int r) {
-  const int criteria = nums[r];
-  int       i        = p - 1;
-  for (int j = p; j < r; ++j) {
-    if (nums[j] <= criteria) {
-      ++i;
-      swap(nums[i], nums[j]);
+int partition(int nums[], int first, int last) {
+  const int criteria    = nums[last];
+  int       first_large = first;
+  for (int current = first; current < last; ++current) {
+    if (nums[current] <= criteria) {
+      swap(nums[first_large], nums[current]);
+      ++first_large;
     }
   }
-  swap(nums[i + 1], nums[r]);
-  return i + 1;
+  swap(nums[first_large], nums[last]);
+  return first_large;
 }
 
 int main() {
