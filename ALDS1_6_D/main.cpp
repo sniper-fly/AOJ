@@ -30,14 +30,13 @@ bool chmin(T1& a, T2 b) {
 
 */
 
-constexpr int MAX  = 1000;
 constexpr int VMAX = 10000;
 
 int solve(int len, const vector<int>& nums, int min_all) {
   int          ans = 0;
   vector<int>  dest(nums.begin(), nums.end());
   vector<int>  T(VMAX + 1);
-  vector<bool> V(MAX, false);
+  vector<bool> V(len, false);
 
   // まず、ソート後の目標とする配列を用意する
   sort(dest.begin(), dest.begin() + len);
@@ -71,10 +70,10 @@ int main() {
   ios::sync_with_stdio(0);
   cout << fixed << setprecision(10);
 
-  int         len;
-  vector<int> nums(MAX + 1);
-  int         min_all = VMAX;
+  int len;
+  int min_all = VMAX;
   cin >> len;
+  vector<int> nums(len);
   rep(i, len) {
     cin >> nums[i];
     min_all = min(min_all, nums[i]);
