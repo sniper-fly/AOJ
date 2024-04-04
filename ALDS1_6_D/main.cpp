@@ -32,30 +32,33 @@ bool chmin(T1& a, T2 b) {
 
 constexpr int VMAX = 10000;
 
+// the map key number is going to be the map value number's index after sorted
 int solve(int len, const vector<int>& nums, int min_all) {
-  int          ans = 0;
-  vector<int>  dest(nums.begin(), nums.end());
-  vector<int>  T(VMAX + 1);
-  vector<bool> V(len, false);
+  int              ans = 0;
+  vector<int>      dest(nums.begin(), nums.end());
+  map<int, size_t> dest_idx_of_num;
+  vector<bool>     already_searched(len, false);
 
   // まず、ソート後の目標とする配列を用意する
   sort(dest.begin(), dest.begin() + len);
 
-  rep(i, len) { T[dest[i]] = i; }
+  // numをキーとし、ソート後の配列がnumを配置するインデックスをvalueとするmap
+  rep(i, len) { dest_idx_of_num[dest[i]] = i; }
   rep(i, len) {
-    if (V[i]) continue;
+    if (already_searched[i]) continue;
     int cur          = i;
     int sum          = 0;
     int min_in_cycle = VMAX;
     int cycle_len    = 0;
     while (true) {
-      V[cur] = true;
+      // numsの配列長と対応したboolの配列で、そのインデックスが探索済みかどうかを保持する
+      already_searched[cur] = true;
       ++cycle_len;
-      const int v  = nums[cur];
-      min_in_cycle = min(min_in_cycle, v);
-      sum += v;
-      cur = T[v];
-      if (V[cur]) break;
+      const int w  = nums[cur];
+      min_in_cycle = min(min_in_cycle, w);
+      sum += w;
+      cur = dest_idx_of_num[w];
+      if (already_searched[cur]) break;
     }
     // サイクル内の要素での最小コスト vs サイクル外の最小値を借りた場合のコスト
     ans += min(sum + (cycle_len - 2) * min_in_cycle,

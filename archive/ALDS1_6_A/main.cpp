@@ -30,6 +30,9 @@ bool chmin(T1& a, T2 b) {
 
 */
 
+// counting sort
+// 計数ソート
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
