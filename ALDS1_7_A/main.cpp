@@ -63,9 +63,12 @@ void print(int u, const vector<int>& d, const vector<Node>& tree) {
 }
 
 void rec(int u, int p, vector<int>& d, const vector<Node>& tree) {
-  d[u] = p;
-  if (tree[u].right != NIL) rec(tree[u].right, p, d, tree);
-  if (tree[u].left != NIL) rec(tree[u].left, p + 1, d, tree);
+  function<void(int, int)> f = [&](int u, int p) {
+    d[u] = p;
+    if (tree[u].right != NIL) f(tree[u].right, p);
+    if (tree[u].left != NIL) f(tree[u].left, p + 1);
+  };
+  f(u, p);
 }
 
 int main() {
