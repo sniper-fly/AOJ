@@ -63,10 +63,13 @@ void print(int u, const vector<int>& d, const vector<Node>& tree) {
 }
 
 void rec(int u, int p, vector<int>& d, const vector<Node>& tree) {
-  function<void(int, int)> f = [&](int u, int p) {
-    d[u] = p;
-    if (tree[u].right != NIL) f(tree[u].right, p);
-    if (tree[u].left != NIL) f(tree[u].left, p + 1);
+  function<void(int, int)> f = [&](int id, int depth) {
+    // 終了条件は、right, leftがともにNIL
+    d[id] = depth;
+    // 兄弟には同じ深さを設定する
+    if (tree[id].right != NIL) f(tree[id].right, depth);
+    // 子供には深さ+1する
+    if (tree[id].left != NIL) f(tree[id].left, depth + 1);
   };
   f(u, p);
 }
@@ -76,28 +79,31 @@ int main() {
   ios::sync_with_stdio(0);
   cout << fixed << setprecision(10);
 
-  int depth, id, c, l, r;
-  int len;
+  int dimension, id, child, sibling, root, len;
   cin >> len;
   vector<Node> tree(len, { NIL, NIL, NIL });
   rep(i, len) {
-    cin >> id >> depth;
-    rep(j, depth) {
-      cin >> c;
+    cin >> id >> dimension;
+    rep(j, dimension) {
+      // 各ノードの子を逐次入力する
+      cin >> child;
+      // 1回目はtree[id]ノードの子としてchildを設定する
       if (j == 0)
-        tree[id].left = c;
-      else
-        tree[l].right = c;
-      l              = c;
-      tree[c].parent = id;
+        tree[id].left = child;
+      else // 2回目以降は
+        tree[sibling].right = child;
+      // 2回目以降の入力で使う。
+      sibling = child;
+      // 逐次入力されたノードの親は全てtree[id]
+      tree[child].parent = id;
     }
   }
   rep(i, len) {
-    if (tree[i].parent == NIL) r = i;
+    if (tree[i].parent == NIL) root = i;
   }
 
   vector<int> d(len);
-  rec(r, 0, d, tree);
+  rec(root, 0, d, tree);
 
   rep(i, len) { print(i, d, tree); }
 }
