@@ -37,14 +37,15 @@ struct Node
   int parent;
   int left;
   int right;
+  int depth;
 };
 
 constexpr int NIL = -1;
 
-void print(int u, const vector<int>& d, const vector<Node>& tree) {
+void print(int u, const vector<Node>& tree) {
   cout << "node " << u << ": ";
   cout << "parent = " << tree[u].parent << ", ";
-  cout << "depth = " << d[u] << ", ";
+  cout << "depth = " << tree[u].depth << ", ";
 
   if (tree[u].parent == NIL)
     cout << "root, ";
@@ -62,16 +63,16 @@ void print(int u, const vector<int>& d, const vector<Node>& tree) {
   cout << "]" << endl;
 }
 
-void rec(int u, int p, vector<int>& d, const vector<Node>& tree) {
+void rec(int u, int d, vector<Node>& tree) {
   function<void(int, int)> f = [&](int id, int depth) {
     // 終了条件は、right, leftがともにNIL
-    d[id] = depth;
+    tree[id].depth = depth;
     // 兄弟には同じ深さを設定する
     if (tree[id].right != NIL) f(tree[id].right, depth);
     // 子供には深さ+1する
     if (tree[id].left != NIL) f(tree[id].left, depth + 1);
   };
-  f(u, p);
+  f(u, d);
 }
 
 int main() {
@@ -102,8 +103,7 @@ int main() {
     if (tree[i].parent == NIL) root = i;
   }
 
-  vector<int> d(len);
-  rec(root, 0, d, tree);
+  rec(root, 0, tree);
 
-  rep(i, len) { print(i, d, tree); }
+  rep(i, len) { print(i, tree); }
 }
