@@ -43,9 +43,30 @@ constexpr int NIL = -1;
 
 void print(const map<int, Node>& tree) {
   for (auto i = tree.begin(); i != tree.end(); ++i) {
-    const int id     = i->first;
-    const int parent = i->second.parent;
-    // const int sib
+    const int    id     = i->first;
+    const Node&  node   = i->second;
+    const int    degree = (node.left != NIL) + (node.right != NIL);
+    const string type   = [&node]() {
+      if (node.parent == NIL) {
+        return "root";
+      } else if (node.left == NIL && node.right == NIL) {
+        return "leaf";
+      } else {
+        return "internal node";
+      }
+    }();
+    const int sibling = [&]() {
+      if (node.parent == NIL) return -1;
+
+      const int left_sib  = tree.at(node.parent).left;
+      const int right_sib = tree.at(node.parent).right;
+      return id == left_sib ? right_sib : left_sib;
+    }();
+
+    printf("node %d: parent = %d, sibling = %d, degree = %d, depth = %d, "
+           "height = %d, %s\n",
+        id, node.parent, sibling, degree, node.depth, node.height,
+        type.c_str());
   }
 }
 
