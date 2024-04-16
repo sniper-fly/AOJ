@@ -23,6 +23,12 @@ bool chmin(T1& a, T2 b) {
   } else
     return false;
 }
+template<typename T>
+T cinput() {
+  T input;
+  cin >> input;
+  return input;
+}
 // priority_queue<ll, vector<ll>, greater<ll>> Q;
 // LMAX = 18446744073709551615 (1.8*10^19)
 // IMAX = 2147483647 (2.1*10^9)
@@ -75,8 +81,7 @@ int main() {
   ios::sync_with_stdio(0);
   cout << fixed << setprecision(10);
 
-  int len;
-  cin >> len;
+  const int      len = cinput<int>();
   map<int, Node> tree;
   rep(i, len) {
     int id, left, right;
