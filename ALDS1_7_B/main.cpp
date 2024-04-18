@@ -3,10 +3,11 @@ using namespace std;
 using ll  = long long;
 using ld  = long double;
 using pll = pair<ll, ll>;
-#define rep(i, n) for (ll i = 0; i < n; ++i)
-#define all(c)    begin(c), end(c)
-#define PI        acos(-1)
-#define oo        2e18
+#define rep(i, n)       for (ll i = 0; i < n; ++i)
+#define all(c)          begin(c), end(c)
+#define PI              acos(-1)
+#define oo              2e18
+#define cinp(type, var) type var = c_input<type>()
 template<typename T1, typename T2>
 bool chmax(T1& a, T2 b) {
   if (a < b) {
@@ -24,7 +25,7 @@ bool chmin(T1& a, T2 b) {
     return false;
 }
 template<typename T>
-T cinput() {
+T c_input() {
   T input;
   cin >> input;
   return input;
@@ -81,11 +82,12 @@ int main() {
   ios::sync_with_stdio(0);
   cout << fixed << setprecision(10);
 
-  const int      len = cinput<int>();
+  const cinp(int, len);
   map<int, Node> tree;
   rep(i, len) {
-    int id, left, right;
-    cin >> id >> left >> right;
+    const cinp(int, id);
+    const cinp(int, left);
+    const cinp(int, right);
     // もし初出の値であれば、parentをNILに設定する
     if (tree.find(id) == tree.end()) tree[id].parent = NIL;
     tree[id].left  = left;
@@ -101,9 +103,11 @@ int main() {
 
   function<int(int, int)> rec_height = [&tree, &rec_height](
                                            int id, int height) {
-    if (tree[id].left == NIL || tree[id].right == NIL) return height;
-    return max(rec_height(tree[id].left, height + 1),
-        rec_height(tree[id].right, height + 1));
+    if (tree[id].left == NIL && tree[id].right == NIL) return height;
+    const int left  = tree[id].left;
+    const int right = tree[id].right;
+    return max(left == NIL ? height : rec_height(left, height + 1),
+        right == NIL ? height : rec_height(right, height + 1));
   };
 
   // depth の情報を付与する

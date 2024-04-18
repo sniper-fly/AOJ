@@ -22,5 +22,8 @@
     "**/metadata.yml": true,
     "**/.gdb_history": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "cSpell.words": [
+    "cinp"
+  ]
 }
