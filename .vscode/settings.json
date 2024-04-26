@@ -17,7 +17,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/a.out": true,
-    "**/out_*.txt": true,
+    "**/out_*.txt": false,
     "**/in_*.txt": false,
     "**/metadata.yml": true,
     "**/.gdb_history": true

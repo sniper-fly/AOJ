@@ -55,6 +55,24 @@ void calc_preorder(vector<int>& order, const vector<Node>& tree, int root_id) {
   sub_fn(root_id);
 }
 
+void calc_inorder(vector<int>& order, const vector<Node>& tree, int root_id) {
+  function<void(int)> sub_fn = [&](int id) {
+    if (tree[id].left != NIL) sub_fn(tree[id].left);
+    order.push_back(id);
+    if (tree[id].right != NIL) sub_fn(tree[id].right);
+  };
+  sub_fn(root_id);
+}
+
+void calc_postorder(vector<int>& order, const vector<Node>& tree, int root_id) {
+  function<void(int)> sub_fn = [&](int id) {
+    if (tree[id].left != NIL) sub_fn(tree[id].left);
+    if (tree[id].right != NIL) sub_fn(tree[id].right);
+    order.push_back(id);
+  };
+  sub_fn(root_id);
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
@@ -82,8 +100,18 @@ int main() {
   vector<int> preorder;
   calc_preorder(preorder, tree, root_id);
   cout << "Preorder" << endl;
-  rep(i, len) {
-    if (i) cout << " ";
-    cout << preorder[i];
-  }
+  rep(i, len) { cout << " " << preorder[i]; }
+  cout << endl;
+
+  vector<int> inorder;
+  calc_inorder(inorder, tree, root_id);
+  cout << "Inorder" << endl;
+  rep(i, len) { cout << " " << inorder[i]; }
+  cout << endl;
+
+  vector<int> postorder;
+  calc_postorder(postorder, tree, root_id);
+  cout << "Postorder" << endl;
+  rep(i, len) { cout << " " << postorder[i]; }
+  cout << endl;
 }
