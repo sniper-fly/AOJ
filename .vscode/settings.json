@@ -24,6 +24,11 @@
   },
   "explorerExclude.backup": {},
   "cSpell.words": [
-    "cinp"
+    "chmax",
+    "chmin",
+    "cinp",
+    "IMAX",
+    "inorder",
+    "LMAX"
   ]
 }
