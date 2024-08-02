@@ -37,11 +37,60 @@ T c_input() {
 
 */
 
+typedef struct
+{
+  int   key;
+  node *parent, *left, *right;
+} node;
+
+node* NIL;
+
+void insert(node* root, int n) {
+  node* y       = NIL;
+  node* current = root;
+  node* z;
+
+  // 挿入する値
+  z        = (node*)malloc(sizeof(node));
+  z->key   = n;
+  z->left  = NIL;
+  z->right = NIL;
+
+  while (current != NIL) {
+    y = current;
+    if (z->key < current->key) {
+      current = current->left;
+    } else {
+      current = current->right;
+    }
+  }
+
+  z->parent = y;
+  if (y == NIL) {
+    root = z;
+  } else {
+    if (z->key < y->key) {
+      y->left = z;
+    } else {
+      y->right = z;
+    }
+  }
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(0);
   cout << fixed << setprecision(10);
 
-
+  const cinp(int, num);
+  node* root = NIL;
+  rep(i, num) {
+    const cinp(string, cmd);
+    if (cmd == "insert") {
+      const cinp(int, key);
+      insert(root, key);
+    } else {
+      // print
+    }
+  }
 }
-
