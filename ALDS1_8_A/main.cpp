@@ -37,44 +37,61 @@ T c_input() {
 
 */
 
-typedef struct
+struct node
 {
   int   key;
-  node *parent, *left, *right;
-} node;
+  node* parent;
+  node* left;
+  node* right;
+};
 
 node* NIL;
 
-void insert(node* root, int n) {
-  node* y       = NIL;
-  node* current = root;
-  node* z;
-
+void insert(node*& root, int n) {
   // 挿入する値
-  z        = (node*)malloc(sizeof(node));
-  z->key   = n;
-  z->left  = NIL;
-  z->right = NIL;
+  node* newNode;
+  newNode        = (node*)malloc(sizeof(node));
+  newNode->key   = n;
+  newNode->left  = NIL;
+  newNode->right = NIL;
 
+  if (root == NIL) {
+    root = newNode;
+    return;
+  }
+
+  node* parentNodeToInsert = NIL;
+  node* current            = root;
+  // z を挿入するべき場所を探す
   while (current != NIL) {
-    y = current;
-    if (z->key < current->key) {
+    parentNodeToInsert = current;
+    if (newNode->key < current->key) {
       current = current->left;
     } else {
       current = current->right;
     }
   }
 
-  z->parent = y;
-  if (y == NIL) {
-    root = z;
+  newNode->parent = parentNodeToInsert;
+  if (newNode->key < parentNodeToInsert->key) {
+    parentNodeToInsert->left = newNode;
   } else {
-    if (z->key < y->key) {
-      y->left = z;
-    } else {
-      y->right = z;
-    }
+    parentNodeToInsert->right = newNode;
   }
+}
+
+void inorder(node* u) {
+  if (u == NIL) return;
+  inorder(u->left);
+  cout << " " << u->key;
+  inorder(u->right);
+}
+
+void preorder(node* u) {
+  if (u == NIL) return;
+  cout << " " << u->key;
+  preorder(u->left);
+  preorder(u->right);
 }
 
 int main() {
@@ -90,7 +107,10 @@ int main() {
       const cinp(int, key);
       insert(root, key);
     } else {
-      // print
+      inorder(root);
+      cout << endl;
+      preorder(root);
+      cout << endl;
     }
   }
 }
