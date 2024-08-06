@@ -37,62 +37,69 @@ T c_input() {
 
 */
 
-struct node
+class node
 {
+private:
+  node* NIL;
+
   int   key;
   node* parent;
   node* left;
   node* right;
-};
 
-node* NIL;
+public:
+  node() : parent(NIL), left(NIL), right(NIL) {}
+  node(int key) : node() { this->key = key; }
 
-void insert(node*& root, int n) {
-  // 挿入する値
-  node* newNode;
-  newNode        = (node*)malloc(sizeof(node));
-  newNode->key   = n;
-  newNode->left  = NIL;
-  newNode->right = NIL;
+  ~node() {}
 
-  if (root == NIL) {
-    root = newNode;
-    return;
-  }
+  void insert(int n) {
+    // 挿入する値
+    node* newNode;
+    newNode        = (node*)malloc(sizeof(node));
+    newNode->key   = n;
+    newNode->left  = NIL;
+    newNode->right = NIL;
 
-  node* parentNodeToInsert = NIL;
-  node* current            = root;
-  // z を挿入するべき場所を探す
-  while (current != NIL) {
-    parentNodeToInsert = current;
-    if (newNode->key < current->key) {
-      current = current->left;
+    // if (this == NIL) {
+    //   return;
+    // }
+
+    node* parentNodeToInsert = NIL;
+    node* current            = this;
+    // newNode を挿入するべき場所を探す
+    while (current != NIL) {
+      parentNodeToInsert = current;
+      if (newNode->key < current->key) {
+        current = current->left;
+      } else {
+        current = current->right;
+      }
+    }
+
+    newNode->parent = parentNodeToInsert;
+    if (newNode->key < parentNodeToInsert->key) {
+      parentNodeToInsert->left = newNode;
     } else {
-      current = current->right;
+      parentNodeToInsert->right = newNode;
     }
   }
 
-  newNode->parent = parentNodeToInsert;
-  if (newNode->key < parentNodeToInsert->key) {
-    parentNodeToInsert->left = newNode;
-  } else {
-    parentNodeToInsert->right = newNode;
+  void inorder() {
+    if (this == NIL) return;
+    this->left->inorder();
+    cout << " " << this->key;
+    this->right->inorder();
   }
-}
 
-void inorder(node* u) {
-  if (u == NIL) return;
-  inorder(u->left);
-  cout << " " << u->key;
-  inorder(u->right);
-}
+  void preorder() {
+    if (this == NIL) return;
+    cout << " " << this->key;
+    this->left->preorder();
+    this->right->preorder();
+  }
+};
 
-void preorder(node* u) {
-  if (u == NIL) return;
-  cout << " " << u->key;
-  preorder(u->left);
-  preorder(u->right);
-}
 
 int main() {
   cin.tie(0);
@@ -100,16 +107,16 @@ int main() {
   cout << fixed << setprecision(10);
 
   const cinp(int, num);
-  node* root = NIL;
+  node root;
   rep(i, num) {
     const cinp(string, cmd);
     if (cmd == "insert") {
       const cinp(int, key);
-      insert(root, key);
+      root.insert(key);
     } else {
-      inorder(root);
+      root.inorder();
       cout << endl;
-      preorder(root);
+      root.preorder();
       cout << endl;
     }
   }
